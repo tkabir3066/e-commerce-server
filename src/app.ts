@@ -1,0 +1,42 @@
+import express, {
+  type Application,
+  type NextFunction,
+  type Request,
+  type Response,
+} from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
+import { envVars } from "./app/config/env";
+import { router } from "./app/routes";
+
+const app: Application = express();
+
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://localhost:5174"],
+    credentials: true,
+  }),
+);
+
+//parser
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  fileUpload({
+    tempFileDir: "./uploads",
+    useTempFiles: true,
+  }),
+);
+app.use("/api/v1", router);
+app.get("/", (req: Request, res: Response) => {
+  res.send({
+    message: "Server is running..",
+    environment: envVars.NODE_ENV,
+    uptime: process.uptime().toFixed(2) + " sec",
+    timeStamp: new Date().toISOString(),
+  });
+});
+
+export default app;
