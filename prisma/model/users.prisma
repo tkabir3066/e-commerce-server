@@ -1,0 +1,18 @@
+model User {
+    id                    String    @id @default(uuid()) @db.Uuid
+    name                  String
+    email                 String    @unique
+    password              String
+    role                  UserRole  @default(USER)
+    avatar                Json?
+    reset_password_token  String?
+    reset_password_expire DateTime?
+    createdAt             DateTime  @default(now())
+    updatedAt             DateTime  @updatedAt
+
+    products Product[]
+    reviews  Review[]
+    orders   Order[]
+
+    @@map("users")
+}

@@ -1,0 +1,22 @@
+enum UserRole {
+    USER
+    Admin
+}
+
+enum OrderStatus {
+    PROCESSING
+    SHIPPED
+    DELIVERED
+    CANCELLED
+}
+
+enum PaymentType {
+    ONLINE
+    OFFLINE
+}
+
+enum PaymentStatus {
+    PAID
+    PENDING
+    FAILED
+}

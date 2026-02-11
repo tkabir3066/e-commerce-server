@@ -1,0 +1,21 @@
+model Order {
+    id      String @id @default(uuid()) @db.Uuid
+    buyerId String @db.Uuid
+
+    totalPrice    Decimal
+    taxPrice      Decimal
+    shippingPrice Decimal
+
+    orderStatus OrderStatus @default(PROCESSING)
+    paidAt      DateTime?
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @updatedAt
+
+    buyer User @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+
+    shippingInfo ShippingInfo?
+    orderItems   OrderItem[]
+    payment      Payment?
+
+    @@map("orders")
+}
