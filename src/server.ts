@@ -1,8 +1,7 @@
 import { Server } from "http";
-
+import app from "./app";
 import { connectToDatabase } from "./app/config/db";
 import { envVars } from "./app/config/env";
-import app from "./app";
 
 async function bootstrap() {
   // This variable will hold our server instance
