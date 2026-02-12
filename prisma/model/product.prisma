@@ -1,19 +1,23 @@
 model Product {
-    id          String   @id @default(uuid()) @db.Uuid
+    id          String  @id @default(uuid()) @db.Uuid
     name        String
     description String
-    price       Decimal
+    price       Decimal @db.Decimal(10, 2)
     category    String
-    ratings     Decimal  @default(0)
+    ratings     Decimal @default(0) @db.Decimal(3, 2)
     images      Json
     stock       Int
-    userId      String   @db.Uuid
-    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+
+    userId String @db.Uuid
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     reviews    Review[]
     orderItems OrderItem[]
 
+    @@index([userId])
+    @@index([category])
     @@map("products")
 }

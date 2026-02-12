@@ -2,14 +2,16 @@ model Order {
     id      String @id @default(uuid()) @db.Uuid
     buyerId String @db.Uuid
 
-    totalPrice    Decimal
-    taxPrice      Decimal
-    shippingPrice Decimal
+    itemsPrice    Decimal @db.Decimal(10, 2)
+    taxPrice      Decimal @db.Decimal(10, 2)
+    shippingPrice Decimal @db.Decimal(10, 2)
+    totalPrice    Decimal @db.Decimal(10, 2)
 
     orderStatus OrderStatus @default(PROCESSING)
     paidAt      DateTime?
-    createdAt   DateTime    @default(now())
-    updatedAt   DateTime    @updatedAt
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     buyer User @relation(fields: [buyerId], references: [id], onDelete: Cascade)
 
@@ -17,5 +19,7 @@ model Order {
     orderItems   OrderItem[]
     payment      Payment?
 
+    @@index([buyerId])
+    @@index([orderStatus])
     @@map("orders")
 }

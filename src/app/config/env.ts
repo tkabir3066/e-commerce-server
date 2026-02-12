@@ -13,6 +13,11 @@ interface EnvConfig {
     CLOUDINARY_API_KEY: string;
     CLOUDINARY_API_SECRET: string;
   };
+  ADMIN: {
+    ADMIN_NAME: string;
+    ADMIN_EMAIL: string;
+    ADMIN_PASSWORD: string;
+  };
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -25,6 +30,9 @@ const loadEnvVariables = (): EnvConfig => {
     "CLOUDINARY_API_KEY",
     "CLOUDINARY_API_SECRET",
     "BCRYPT_SALT_ROUND",
+    "ADMIN_NAME",
+    "ADMIN_EMAIL",
+    "ADMIN_PASSWORD",
   ];
 
   requiredEnvVariables.forEach((key) => {
@@ -43,6 +51,11 @@ const loadEnvVariables = (): EnvConfig => {
       CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
       CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
       CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
+    },
+    ADMIN: {
+      ADMIN_NAME: process.env.ADMIN_NAME as string,
+      ADMIN_EMAIL: process.env.ADMIN_EMAIL as string,
+      ADMIN_PASSWORD: process.env.ADMIN_PASSWORD as string,
     },
   };
 };

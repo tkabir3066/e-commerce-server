@@ -3,8 +3,9 @@ model Review {
     productId String @db.Uuid
     userId    String @db.Uuid
 
-    rating    Decimal
-    comment   String
+    rating  Decimal @db.Decimal(3, 2)
+    comment String
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
@@ -12,5 +13,7 @@ model Review {
     user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([productId, userId])
+    @@index([productId])
+    @@index([userId])
     @@map("reviews")
 }
